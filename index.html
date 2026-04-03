@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaston Plantaz — Account- en Contractmanager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark: #1a4a2e;
+    --green-mid:  #2d6b47;
+    --green-accent: #4a9e6a;
+    --green-light: #f0f5f1;
+    --green-rule:  #c5d5ca;
+    --ink:   #0e1a14;
+    --muted: #4a6355;
+    --white: #ffffff;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono:  'DM Mono', monospace;
+    --max:   800px;
+    --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    color: var(--ink);
+    background: var(--white);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Navigation ─────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.35s var(--ease), box-shadow 0.35s;
+  }
+
+  nav.scrolled {
+    background: rgba(26, 74, 46, 0.97);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* ── Hero ───────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    background: var(--green-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 75% 40%, rgba(74,158,106,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 80%, rgba(74,158,106,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .hero-inner { max-width: var(--max); margin: 0 auto; width: 100%; }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+  }
+
+  .hero-name {
+    font-size: clamp(52px, 8vw, 80px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.4s forwards;
+  }
+
+  .hero-title {
+    font-size: clamp(17px, 2.4vw, 22px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.6s forwards;
+  }
+
+  .hero-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    max-width: 440px;
+    line-height: 1.75;
+    border-left: 2px solid var(--green-accent);
+    padding-left: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.8s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.0s forwards;
+  }
+
+  .hero-cta a {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta a:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.6);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.4s forwards;
+  }
+
+  .hero-scroll span {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+    animation: scrollPulse 2.2s ease-in-out infinite;
+  }
+
+  /* ── Sections ───────────────────────────────── */
+  section { padding: 88px 40px; }
+
+  .section-inner { max-width: var(--max); margin: 0 auto; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--green-rule);
+  }
+
+  /* ── Match ──────────────────────────────────── */
+  #match { background: var(--green-light); }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .match-card {
+    background: var(--white);
+    border-radius: 3px;
+    padding: 20px 22px;
+    border-left: 3px solid var(--green-accent);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), box-shadow 0.2s;
+  }
+
+  .match-card:hover { box-shadow: 0 4px 20px rgba(26,74,46,0.08); }
+  .match-card.visible { opacity: 1; transform: translateY(0); }
+
+  .match-card-ask {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 6px;
+  }
+
+  .match-card-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .match-card-value {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── Timeline ───────────────────────────────── */
+  #ervaring { background: var(--white); }
+
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: var(--green-rule);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateX(-14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--green-accent);
+  }
+
+  .timeline-org {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 3px;
+  }
+
+  .timeline-role {
+    font-size: 12px;
+    color: var(--green-accent);
+    font-style: italic;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    letter-spacing: 0.02em;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── Motivatie ──────────────────────────────── */
+  #motivatie { background: var(--green-light); }
+
+  .motivatie-block {
+    background: var(--white);
+    border-radius: 3px;
+    padding: 36px 40px;
+    border-left: 4px solid var(--green-dark);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .motivatie-block.visible { opacity: 1; transform: translateY(0); }
+
+  .motivatie-block p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .motivatie-block p:last-child { margin-bottom: 0; }
+
+  /* ── STARR ──────────────────────────────────── */
+  #starr { background: var(--white); }
+
+  .starr-cards {
+    border: 1px solid var(--green-rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .starr-card {
+    border-bottom: 1px solid var(--green-rule);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+
+  .starr-card:last-child { border-bottom: none; }
+  .starr-card.visible { opacity: 1; transform: translateY(0); }
+
+  .starr-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--white);
+    transition: background 0.15s;
+  }
+
+  .starr-card-header:hover { background: var(--green-light); }
+
+  .starr-letter {
+    width: 34px;
+    height: 34px;
+    background: var(--green-dark);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .starr-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green-dark);
+    flex: 1;
+  }
+
+  .starr-chevron {
+    font-size: 11px;
+    color: var(--green-accent);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .starr-card.open .starr-chevron { transform: rotate(180deg); }
+
+  .starr-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease);
+  }
+
+  .starr-card.open .starr-card-body { max-height: 400px; }
+
+  .starr-card-content {
+    padding: 4px 24px 22px 74px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  /* ── Footer ─────────────────────────────────── */
+  footer {
+    background: var(--green-dark);
+    padding: 48px 40px;
+    text-align: center;
+  }
+
+  .footer-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .footer-contact {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── Animations ─────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.75; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="nav">
+  <div class="nav-name">Gaston Plantaz</div>
+  <ul class="nav-links">
+    <li><a href="#match">Match</a></li>
+    <li><a href="#ervaring">Ervaring</a></li>
+    <li><a href="#motivatie">Motivatie</a></li>
+    <li><a href="#starr">STARR</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Sollicitatie &mdash; De Connectie / Gemeente Arnhem</div>
+    <h1 class="hero-name">Gaston Plantaz</h1>
+    <div class="hero-title">Account- en Contractmanager</div>
+    <p class="hero-tagline">Verbindend, analytisch en strategisch. Met ervaring aan beide kanten van de contracttafel.</p>
+    <div class="hero-cta"><a href="#match">Bekijk mijn profiel</a></div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Match -->
+<section id="match">
+  <div class="section-inner">
+    <div class="section-label">Aansluiting op de functie</div>
+    <h2 class="section-title">Wat de functie vraagt / wat ik meeneem</h2>
+    <div class="match-grid">
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Contracten en DVO's opstellen en bewaken</div>
+        <div class="match-card-value">SLA's en contractafspraken opgesteld bij Ambius, CWS Hygiene en UWV, zowel intern als richting opdrachtgevers.</div>
+      </div>
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Klantrelaties onderhouden met meerdere opdrachtgevers</div>
+        <div class="match-card-value">Stakeholdermanagement met nationale en internationale opdrachtgevers in complexe meerstakeholder-omgevingen.</div>
+      </div>
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Prestaties monitoren en rapporteren</div>
+        <div class="match-card-value">KPI-structuren en dashboards ontwikkeld voor sturing en verantwoording richting directie en opdrachtgevers.</div>
+      </div>
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Financiële afspraken bewaken met Finance &amp; Control</div>
+        <div class="match-card-value">Achtergrond als business controller; P&amp;C-cyclus en budgetbewaking vanuit MT-rollen bij Ambius.</div>
+      </div>
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Strategische en tactische doorvertaling</div>
+        <div class="match-card-value">Master Strategy &amp; Innovation — kracht in vertaling van strategie naar operationele uitvoering.</div>
+      </div>
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Schakelen met afdelingshoofden en senior leadership</div>
+        <div class="match-card-value">Meerdere jaren in MT-rollen; gewend aan afstemming op strategisch en operationeel niveau.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ervaring -->
+<section id="ervaring">
+  <div class="section-inner">
+    <div class="section-label">Loopbaan</div>
+    <h2 class="section-title">Relevante werkervaring</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-org">Ambius (onderdeel van Rentokil Initial)</div>
+        <div class="timeline-role">Business Controller / Programmamanager / Marketing &amp; Business Development / Sales Steering</div>
+        <div class="timeline-desc">Diverse rollen binnen één organisatie: van financiële sturing en P&amp;C-cyclus tot het opzetten van nieuwe productcategorieën en het ondersteunen van de commerciële organisatie met contracten, SLA's, KPI-rapportages en tendertrajecten.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-org">CWS Hygiene</div>
+        <div class="timeline-role">Sales Steering / Account Support</div>
+        <div class="timeline-desc">Ondersteuning van accountmanagementteams bij grote nationale en internationale klanten. Opstellen van contractafspraken, beheer van producten- en dienstencatalogussen en ontwikkeling van dashboards en verbetervoorstellen.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-org">UWV</div>
+        <div class="timeline-role">Assistent Contractdeskundige</div>
+        <div class="timeline-desc">Contractbeheer met re-integratiebedrijven binnen een publieke context. Werken met bestuurlijke zorgvuldigheid, transparantie en uiteenlopende belangen.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-org">Opleiding</div>
+        <div class="timeline-role">Master Strategy &amp; Innovation</div>
+        <div class="timeline-desc">Strategisch denken en de vertaling naar tactische en operationele uitvoering. Leren schakelen tussen organisatieniveaus en lange- en kortetermijnperspectief verbinden.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Motivatie -->
+<section id="motivatie">
+  <div class="section-inner">
+    <div class="section-label">Motivatiebrief</div>
+    <h2 class="section-title">Waarom De Connectie</h2>
+    <div class="motivatie-block">
+      <p>De Connectie werkt voor drie gemeenten met elk hun eigen dynamiek, belangen en verwachtingen. Het verbinden van deze verschillende stakeholders en het vertalen van hun behoeften naar concrete, werkbare afspraken is precies de context waarin ik mij thuis voel.</p>
+      <p>Wat mij in het bijzonder aanspreekt, is de recente overgang naar de nieuwe samenwerkingsvorm, waarbij de bedrijfsvoering is ondergebracht bij de gemeente Arnhem. Dit vraagt om het scherp houden van afspraken, het bewaken van verwachtingen en het creëren van helderheid richting de betrokken gemeenten. Juist in zo'n context zie ik een duidelijke rol voor de account- en contractmanager als verbindende schakel, zowel richting opdrachtgevers als intern, om te borgen dat afspraken niet alleen worden gemaakt, maar ook daadwerkelijk worden nagekomen.</p>
+      <p>Na ervaring aan beide kanten van de contracttafel, zowel commercieel als publiek, ben ik ervan overtuigd dat ik in deze functie direct waarde kan toevoegen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STARR -->
+<section id="starr">
+  <div class="section-inner">
+    <div class="section-label">Motivatievraag &mdash; Verbindend vermogen</div>
+    <h2 class="section-title">Een situatie waarin ik verschillende partijen verbond</h2>
+    <div class="starr-cards">
+      <div class="starr-card open">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">S</div>
+          <div class="starr-card-title">Situatie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Het senior management constateerde dat de beloningssystematiek van accountmanagers niet in lijn lag met de organisatiedoelstellingen, niet marktconform was en onvoldoende aansloot op individuele performance. Dit vroeg om een fundamentele herziening.</div>
+        </div>
+      </div>
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">T</div>
+          <div class="starr-card-title">Taak</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Ik kreeg de opdracht een nieuw commissiemodel te ontwerpen, operationeel te maken en te implementeren. De uitdaging lag niet alleen in de inhoud, maar vooral in het verbinden van partijen met sterk uiteenlopende belangen: senior management, accountmanagers, HR en Finance.</div>
+        </div>
+      </div>
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">A</div>
+          <div class="starr-card-title">Actie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Ik betrok alle stakeholders vroeg in het proces, zodat belangen tijdig inzichtelijk werden en weerstand kon worden omgezet in betrokkenheid. Per partij vertaalde ik de gezamenlijke doelstelling naar wat dit concreet voor hen betekende. Door stapsgewijs te werken, van het bepalen van principes naar modelleren en toetsen, creëerde ik draagvlak zonder het proces te vertragen.</div>
+        </div>
+      </div>
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">R</div>
+          <div class="starr-card-title">Resultaat</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Het nieuwe commissiemodel werd succesvol geïmplementeerd. De sturing op organisatiebrede doelstellingen verbeterde zichtbaar, er ontstond meer uniformiteit en efficiency tussen accountmanagers en het gehele proces werd vereenvoudigd en versneld. Beloning en performance kwamen beter in lijn met elkaar.</div>
+        </div>
+      </div>
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">R</div>
+          <div class="starr-card-title">Reflectie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Dit traject leerde mij dat het vroegtijdig betrekken van de juiste mensen het verschil maakt tussen weerstand en draagvlak. En dat verandering beter beklijft wanneer je stap voor stap werkt: mensen begrijpen dan wat er gebeurt en kunnen meebewegen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-name">Gaston Plantaz</div>
+  <div class="footer-contact">06 10 78 56 65 &nbsp;&middot;&nbsp; gastonplantaz@gmail.com &nbsp;&middot;&nbsp; Nijmegen</div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay) || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.match-card').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.timeline-item').forEach((el, i) => {
+    el.dataset.delay = i * 110;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.motivatie-block').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.starr-card').forEach((el, i) => {
+    el.dataset.delay = i * 70;
+    observer.observe(el);
+  });
+
+  // STARR accordion
+  function toggleStarr(header) {
+    header.parentElement.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
