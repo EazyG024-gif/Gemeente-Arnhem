@@ -498,6 +498,58 @@
     0%, 100% { opacity: 0.35; }
     50%       { opacity: 0.75; }
   }
+
+  /* ── Mobile ─────────────────────────────────── */
+  @media (max-width: 640px) {
+    nav {
+      padding: 14px 20px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .hero {
+      padding: 88px 24px 72px;
+    }
+
+    section {
+      padding: 60px 20px;
+    }
+
+    .over-mij-block {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .over-mij-label-col {
+      text-align: left;
+      border-right: none;
+      padding-right: 0;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--green-rule);
+    }
+
+    .match-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .motivatie-block {
+      padding: 24px 20px;
+    }
+
+    .starr-card-content {
+      padding: 4px 16px 20px 16px;
+    }
+
+    footer {
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      font-size: 22px;
+    }
+  }
 </style>
 </head>
 <body>
