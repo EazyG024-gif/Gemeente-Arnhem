@@ -215,6 +215,48 @@
     border-bottom: 2px solid var(--green-rule);
   }
 
+  /* ── Over mij ───────────────────────────────── */
+  #over-mij { background: var(--white); }
+
+  .over-mij-block {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .over-mij-label-col {
+    text-align: right;
+    border-right: 2px solid var(--green-rule);
+    padding-right: 48px;
+  }
+
+  .over-mij-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+
+  .over-mij-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+  }
+
+  .over-mij-text {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .over-mij-text.visible { opacity: 1; transform: translateY(0); }
+
   /* ── Match ──────────────────────────────────── */
   #match { background: var(--green-light); }
 
@@ -464,6 +506,7 @@
 <nav id="nav">
   <div class="nav-name">Gaston Plantaz</div>
   <ul class="nav-links">
+    <li><a href="#over-mij">Over mij</a></li>
     <li><a href="#match">Match</a></li>
     <li><a href="#ervaring">Ervaring</a></li>
     <li><a href="#motivatie">Motivatie</a></li>
@@ -483,6 +526,19 @@
   <div class="hero-scroll">
     <span>Scroll</span>
     <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Over mij -->
+<section id="over-mij">
+  <div class="section-inner">
+    <div class="over-mij-block">
+      <div class="over-mij-label-col">
+        <div class="over-mij-name">Gaston Plantaz</div>
+        <div class="over-mij-sub">Nijmegen · 1986</div>
+      </div>
+      <p class="over-mij-text">Na jarenlang in een commerciële omgeving te hebben gewerkt, merk ik dat ik iets mis: bijdragen aan iets wat groter is dan commercieel succes. Het publieke speelveld trekt mij aan omdat het vraagt om denken op zowel korte als lange termijn, met ruimte voor inhoud en maatschappelijke impact. Van nature ben ik ondernemend, direct in mijn communicatie en breed georiënteerd. Die combinatie wil ik inzetten op een plek waar goede dienstverlening er echt toe doet.</p>
+    </div>
   </div>
 </section>
 
@@ -663,6 +719,7 @@
     observer.observe(el);
   });
 
+  document.querySelectorAll('.over-mij-text').forEach(el => observer.observe(el));
   document.querySelectorAll('.motivatie-block').forEach(el => observer.observe(el));
 
   document.querySelectorAll('.starr-card').forEach((el, i) => {
