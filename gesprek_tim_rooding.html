@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gesprek Tim Rooding — Voorbereiding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300;400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a4a2e;
+    --green-accent: #4a9e6a;
+    --green-light: #f0f5f1;
+    --ink: #0e1a14;
+    --muted: #4a6355;
+    --rule: #c5d5ca;
+    --white: #ffffff;
+    --bg: #f7f9f7;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 740px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 28px 56px 40px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.08);
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+
+  .header-contact {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    padding-bottom: 12px;
+    border-bottom: 2.5px solid var(--green);
+    margin-bottom: 20px;
+  }
+
+  /* Contact blok */
+  .contact-blok {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact-naam {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+
+  .contact-detail {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .contact-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    background: white;
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* Sectie */
+  .sectie {
+    margin-bottom: 22px;
+  }
+
+  .sectie-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Vragen */
+  .vraag {
+    margin-bottom: 18px;
+    padding-left: 14px;
+    border-left: 2px solid var(--green-accent);
+  }
+
+  .vraag.hoofd {
+    border-left: 3px solid var(--green);
+  }
+
+  .vraag-badge {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 3px;
+  }
+
+  .vraag.hoofd .vraag-badge {
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .vraag-tekst {
+    font-size: 12px;
+    color: var(--ink);
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  .notitie-ruimte {
+    margin-top: 6px;
+    border-bottom: 1px dotted var(--rule);
+    height: 18px;
+  }
+
+  /* Tips */
+  .tip-lijst {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tip-lijst li {
+    font-size: 11.5px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .tip-lijst li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--green-accent);
+    font-size: 11px;
+  }
+
+  /* Openingszin */
+  .opening {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    padding: 12px 16px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header-name">Gaston Plantaz</div>
+  <div class="header-contact">06 10 78 56 65 &nbsp;|&nbsp; gastonplantaz@gmail.com &nbsp;|&nbsp; Voorbereiding telefoongesprek</div>
+
+  <!-- Contact -->
+  <div class="contact-blok">
+    <div>
+      <div class="contact-naam">Tim Rooding</div>
+      <div class="contact-detail">Teamleider · De Connectie · Gemeente Arnhem</div>
+      <div class="contact-detail" style="margin-top:2px;">tim.rooding@connectie.nl</div>
+    </div>
+    <div class="contact-tag">Informeel kennismakingsgesprek</div>
+  </div>
+
+  <!-- Openingszin -->
+  <div class="sectie">
+    <div class="sectie-label">Openingszin</div>
+    <div class="opening">
+      "Goedemiddag, u spreekt met Gaston Plantaz. Ik heb onlangs een mail gestuurd — ik ben concreet bezig met solliciteren op de functie van Account- en Contractmanager en wilde graag even kort met u spreken om een paar vragen te stellen."
+    </div>
+  </div>
+
+  <!-- Aanbevolen vragen -->
+  <div class="sectie">
+    <div class="sectie-label">Aanbevolen vragen (stel er 2-3)</div>
+
+    <div class="vraag hoofd">
+      <div class="vraag-badge">★ Over de overgang</div>
+      <div class="vraag-tekst">"De Connectie maakt een overgang door naar een nieuwe samenwerkingsvorm. Wat betekent dat concreet voor de account- en contractmanagementfunctie — welke afspraken worden opnieuw bepaald en wat staat er al vast?"</div>
+      <div class="notitie-ruimte"></div>
+      <div class="notitie-ruimte"></div>
+    </div>
+
+    <div class="vraag hoofd">
+      <div class="vraag-badge">★ Over de drie gemeenten</div>
+      <div class="vraag-tekst">"Arnhem, Renkum en Rheden hebben elk hun eigen karakter en tempo. Waar zitten op dit moment de grootste verschillen in verwachtingen of werkwijze tussen de drie opdrachtgevers?"</div>
+      <div class="notitie-ruimte"></div>
+      <div class="notitie-ruimte"></div>
+    </div>
+
+    <div class="vraag hoofd">
+      <div class="vraag-badge">★ Over prioriteiten</div>
+      <div class="vraag-tekst">"Wat zou voor jou in de eerste drie tot zes maanden het belangrijkste zijn om te realiseren in deze functie?"</div>
+      <div class="notitie-ruimte"></div>
+      <div class="notitie-ruimte"></div>
+    </div>
+  </div>
+
+  <!-- Extra vragen -->
+  <div class="sectie">
+    <div class="sectie-label">Extra vragen (indien tijd)</div>
+
+    <div class="vraag">
+      <div class="vraag-badge">Over de producten- en dienstencatalogus</div>
+      <div class="vraag-tekst">"Hoe volwassen is de PDC op dit moment — is het meer een instrument dat verder ontwikkeld moet worden, of ligt de nadruk op beheer en actualisatie?"</div>
+      <div class="notitie-ruimte"></div>
+    </div>
+
+    <div class="vraag">
+      <div class="vraag-badge">Over samenwerking</div>
+      <div class="vraag-tekst">"Hoe werkt de account- en contractmanager in de praktijk samen met Finance & Control en de afdelingshoofden?"</div>
+      <div class="notitie-ruimte"></div>
+    </div>
+
+    <div class="vraag">
+      <div class="vraag-badge">Over succes</div>
+      <div class="vraag-tekst">"Hoe zou jij over een jaar terugkijken op een succesvolle invulling van deze functie?"</div>
+      <div class="notitie-ruimte"></div>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="sectie">
+    <div class="sectie-label">Tips voor het gesprek</div>
+    <ul class="tip-lijst">
+      <li>Houd het kort en vriendelijk — het doel is kennismaken, niet interviewen</li>
+      <li>Luister goed en reageer op wat hij zegt, stel geen vragen af als een lijstje</li>
+      <li>Sluit af met: "Ik stuur mijn sollicitatie deze week in — bedankt voor uw tijd"</li>
+      <li>Vraag eventueel of hij nog tips heeft voor de sollicitatie</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>
