@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bijlage Gaston Plantaz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300;400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --green: #1a4a2e;
+    --green-accent: #4a9e6a;
+    --ink: #0e1a14;
+    --muted: #4a6355;
+    --rule: #c5d5ca;
+    --white: #ffffff;
+    --bg: #f7f9f7;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 740px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 28px 64px 36px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.08);
+    min-height: 100vh;
+  }
+
+  .name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .contact-line {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    padding-bottom: 12px;
+    border-bottom: 2.5px solid var(--green);
+    margin-bottom: 28px;
+  }
+
+  /* ── Website blok ── */
+  .website-block {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 20px 24px;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--green);
+    margin-bottom: 36px;
+    background: var(--bg);
+  }
+
+  .website-text { flex: 1; }
+
+  .website-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 6px;
+  }
+
+  .website-intro {
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .website-url {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.03em;
+  }
+
+  #qrcode {
+    flex-shrink: 0;
+    width: 90px;
+    height: 90px;
+  }
+
+  #qrcode canvas, #qrcode img {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  /* ── STARR ── */
+  .starr-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2.5px solid var(--green);
+  }
+
+  .starr-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 3px;
+  }
+
+  .starr-subtitle {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .starr-item { margin-bottom: 14px; }
+
+  .starr-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 3px;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="name">Gaston Plantaz</div>
+  <div class="contact-line">06 10 78 56 65 | gastonplantaz@gmail.com | Gabriel García Márquezstraat 8, Nijmegen</div>
+
+  <!-- Website + QR -->
+  <div class="website-block">
+    <div class="website-text">
+      <div class="website-label">Interactieve sollicitatiepagina</div>
+      <p class="website-intro">Naast deze bijlage heb ik een persoonlijke sollicitatiepagina samengesteld met mijn profiel, ervaringsoverzicht en uitgewerkte motivatievraag.</p>
+      <div class="website-url">gastonplantaz.nl/deconnectie</div>
+    </div>
+    <div id="qrcode"></div>
+  </div>
+
+  <!-- Motivatievraag -->
+  <div class="starr-header">
+    <div class="starr-title">Motivatievraag: Verbindend vermogen</div>
+    <div class="starr-subtitle">Vertel over een situatie waarin jij verschillende partijen met uiteenlopende belangen hebt weten te verbinden.</div>
+  </div>
+
+  <div class="starr-item">
+    <div class="starr-label">Situatie</div>
+    <p>Het senior management constateerde dat de beloningssystematiek van accountmanagers niet in lijn lag met de organisatiedoelstellingen, niet marktconform was en onvoldoende aansloot op individuele performance. Dit vroeg om een fundamentele herziening.</p>
+  </div>
+
+  <div class="starr-item">
+    <div class="starr-label">Taak</div>
+    <p>Ik kreeg de opdracht een nieuw commissiemodel te ontwerpen, operationeel te maken en te implementeren. De uitdaging lag niet alleen in de inhoud, maar vooral in het verbinden van partijen met sterk uiteenlopende belangen: het senior management met zijn strategische doelstellingen, de accountmanagers die gemotiveerd moesten blijven, HR met haar contractuele kaders en Finance met haar behoefte aan betrouwbare forecasting en operationele haalbaarheid.</p>
+  </div>
+
+  <div class="starr-item">
+    <div class="starr-label">Actie</div>
+    <p>Ik betrok alle stakeholders vroeg in het proces, zodat belangen tijdig inzichtelijk werden en weerstand kon worden omgezet in betrokkenheid. Per partij vertaalde ik de gezamenlijke doelstelling naar wat dit concreet voor hen betekende. Door stapsgewijs te werken, van het bepalen van principes naar modelleren en toetsen, creëerde ik draagvlak zonder het proces te vertragen.</p>
+  </div>
+
+  <div class="starr-item">
+    <div class="starr-label">Resultaat</div>
+    <p>Het nieuwe commissiemodel werd succesvol geïmplementeerd. De sturing op organisatiebrede doelstellingen verbeterde zichtbaar, er ontstond meer uniformiteit en efficiency tussen accountmanagers en het gehele proces werd vereenvoudigd en versneld. Beloning en performance kwamen beter in lijn met elkaar.</p>
+  </div>
+
+  <div class="starr-item">
+    <div class="starr-label">Reflectie</div>
+    <p>Dit traject leerde mij dat het vroegtijdig betrekken van de juiste mensen het verschil maakt tussen weerstand en draagvlak. En dat verandering beter beklijft wanneer je stap voor stap werkt: mensen begrijpen dan wat er gebeurt en kunnen meebewegen.</p>
+  </div>
+
+</div>
+
+<script>
+  new QRCode(document.getElementById('qrcode'), {
+    text: 'https://gastonplantaz.nl/deconnectie',
+    width: 90,
+    height: 90,
+    colorDark: '#1a4a2e',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+</script>
+</body>
+</html>
