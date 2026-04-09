@@ -2,7 +2,409 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gaston Plantaz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:     #1a1a1a;
+    --muted:   #6b6b6b;
+    --accent:  #2d5986;
+    --rule:    #e4e4e0;
+    --bg:      #f8f8f6;
+    --white:   #ffffff;
+    --serif:   'Source Serif 4', Georgia, serif;
+    --mono:    'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    background: var(--white);
+    min-height: 100vh;
+    box-shadow: 0 0 80px rgba(0,0,0,0.06);
+  }
+
+  /* ── Header ── */
+  .header {
+    padding: 56px 64px 48px;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .header-left { }
+
+  .header-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .header-name {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .header-title {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+
+  .header-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .contact-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+
+  .contact-item:hover { color: var(--accent); }
+
+  /* ── Foto placeholder ── */
+  .foto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px dashed var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .foto-placeholder {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rule);
+  }
+
+  /* ── Secties ── */
+  .section {
+    padding: 40px 64px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  /* ── Intro ── */
+  .intro p {
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; padding-left: 24px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--rule);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .tl-item:last-child { margin-bottom: 0; }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .tl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 2px;
+    flex-wrap: wrap;
+  }
+
+  .tl-org {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .tl-period {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tl-role {
+    font-size: 12px;
+    color: var(--accent);
+    font-style: italic;
+    margin-bottom: 5px;
+    font-family: var(--mono);
+    letter-spacing: 0.01em;
+  }
+
+  .tl-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Opleiding ── */
+  .edu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+
+  .edu-item:last-child { border-bottom: none; }
+
+  .edu-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1px;
+  }
+
+  .edu-sub {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .edu-period {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── Competenties ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .header { padding: 36px 24px 32px; grid-template-columns: 1fr; }
+    .foto { width: 88px; height: 88px; order: -1; }
+    .header-name { font-size: 30px; }
+    .section { padding: 32px 24px; }
+    .tl-header { flex-direction: column; gap: 2px; }
+  }
+</style>
 </head>
-<body></body>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-label">Profiel</div>
+      <div class="header-name">Gaston Plantaz</div>
+      <div class="header-title">Strategie &amp; operatie &nbsp;·&nbsp; Contract- en relatiemanagement &nbsp;·&nbsp; Publieke sector</div>
+      <div class="header-contact">
+        <a class="contact-item" href="tel:0610785665">06 10 78 56 65</a>
+        <a class="contact-item" href="mailto:gastonplantaz@gmail.com">gastonplantaz@gmail.com</a>
+        <span class="contact-item">Nijmegen</span>
+      </div>
+    </div>
+    <div class="foto">
+      <!-- Vervang onderstaande regel door: <img src="foto.jpg" alt="Gaston Plantaz"> -->
+      <span class="foto-placeholder">foto</span>
+    </div>
+  </div>
+
+  <!-- Introductie -->
+  <div class="section intro">
+    <div class="section-label">Over mij</div>
+    <p>Na ruim tien jaar in commerciële omgevingen, in rollen op het snijvlak van strategie, contractmanagement en stakeholdermanagement, zet ik mijn kracht nu in op plekken waar goede dienstverlening er echt toe doet. Ik ben analytisch, verbindend en gewend te schakelen tussen belangen, niveaus en disciplines. Met ervaring aan beide kanten van de contracttafel, zowel commercieel als publiek, ben ik snel inzetbaar in complexe samenwerkingsverbanden.</p>
+  </div>
+
+  <!-- Competenties -->
+  <div class="section">
+    <div class="section-label">Kerncompetenties</div>
+    <div class="tags">
+      <span class="tag">Contract- &amp; accountmanagement</span>
+      <span class="tag">SLA- en KPI-sturing</span>
+      <span class="tag">Stakeholdermanagement</span>
+      <span class="tag">P&amp;C-cyclus</span>
+      <span class="tag">Procesoptimalisatie</span>
+      <span class="tag">Verandermanagement</span>
+      <span class="tag">Publieke sector</span>
+      <span class="tag">Strategie &amp; innovatie</span>
+    </div>
+  </div>
+
+  <!-- Werkervaring -->
+  <div class="section">
+    <div class="section-label">Werkervaring</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-org">CWS Hygiene Nederland</span>
+          <span class="tl-period">2023 – heden</span>
+        </div>
+        <div class="tl-role">Head of Sales Steering, Marketing &amp; Business Development</div>
+        <div class="tl-desc">Leiding aan twee multidisciplinaire teams. Dashboards en KPI-structuren ontwikkeld voor sturing en verantwoording. Verandertrajecten en systeemimplementaties gecoördineerd van start tot borging.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-org">Rentokil Initial | Ambius — Benelux, Duitsland &amp; Zweden</span>
+          <span class="tl-period">2021 – 2023</span>
+        </div>
+        <div class="tl-role">Marketing &amp; Business Development Manager</div>
+        <div class="tl-desc">Eindverantwoordelijk voor Marketing &amp; Business Development. Dienstverleningsafspraken en SLA's opgesteld met grote nationale en internationale klanten. Lid van het internationale managementteam.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-org">Rentokil Initial | Ambius — Benelux &amp; Duitsland</span>
+          <span class="tl-period">2019 – 2021</span>
+        </div>
+        <div class="tl-role">Programma Manager · ASPIRE Internationaal Talentenprogramma</div>
+        <div class="tl-desc">Internationale implementatietrajecten geleid. Contractafspraken en SLA's beheerd bij grote tenders waaronder UWV, Politie en diverse gemeenten.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-org">Rentokil Initial | Ambius — Benelux</span>
+          <span class="tl-period">2016 – 2018</span>
+        </div>
+        <div class="tl-role">Project &amp; Tendermanager</div>
+        <div class="tl-desc">Producten- en dienstencatalogussen beheerd als onderdeel van contracten en tendertrajecten. Nieuw productsegment opgezet voor de gehele Benelux.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-org">Rentokil Initial | Ambius — Benelux</span>
+          <span class="tl-period">2014 – 2015</span>
+        </div>
+        <div class="tl-role">Business Controller</div>
+        <div class="tl-desc">Managementrapportages en analyses opgesteld ter ondersteuning van strategische besluitvorming. Financiële afspraken bewaakt in aansluiting op de P&amp;C-cyclus.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-org">UWV</span>
+          <span class="tl-period">2011 – 2012</span>
+        </div>
+        <div class="tl-role">Assistent Contractdeskundige re-integratie</div>
+        <div class="tl-desc">Contracten met re-integratiebedrijven beheerd binnen een publieke uitvoeringsorganisatie, met aandacht voor zorgvuldigheid en naleving van wettelijke kaders.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Opleiding -->
+  <div class="section">
+    <div class="section-label">Opleiding</div>
+
+    <div class="edu-item">
+      <div>
+        <div class="edu-title">MSc. Business Administration — Strategy &amp; Innovation</div>
+        <div class="edu-sub">Radboud Universiteit Nijmegen &nbsp;·&nbsp; Scriptie: 8</div>
+      </div>
+      <span class="edu-period">2011 – 2013</span>
+    </div>
+
+    <div class="edu-item">
+      <div>
+        <div class="edu-title">BSc. Bedrijfskunde</div>
+        <div class="edu-sub">Hogeschool van Arnhem en Nijmegen</div>
+      </div>
+      <span class="edu-period">2006 – 2010</span>
+    </div>
+
+  </div>
+
+</div>
+</body>
 </html>
