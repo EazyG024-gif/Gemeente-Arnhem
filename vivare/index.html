@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaston Plantaz, Innovatiemanager Vivare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark: #1a4a2e;
+    --green-mid:  #2d6b47;
+    --green-accent: #4a9e6a;
+    --green-light: #f0f5f1;
+    --green-rule:  #c5d5ca;
+    --ink:   #0e1a14;
+    --muted: #4a6355;
+    --white: #ffffff;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono:  'DM Mono', monospace;
+    --max:   800px;
+    --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    color: var(--ink);
+    background: var(--white);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.35s var(--ease), box-shadow 0.35s;
+  }
+
+  nav.scrolled {
+    background: rgba(26, 74, 46, 0.97);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    background: var(--green-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 75% 40%, rgba(74,158,106,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 80%, rgba(74,158,106,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .hero-inner { max-width: var(--max); margin: 0 auto; width: 100%; }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+  }
+
+  .hero-name {
+    font-size: clamp(52px, 8vw, 80px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.4s forwards;
+  }
+
+  .hero-title {
+    font-size: clamp(17px, 2.4vw, 22px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.6s forwards;
+  }
+
+  .hero-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    max-width: 440px;
+    line-height: 1.75;
+    border-left: 2px solid var(--green-accent);
+    padding-left: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.8s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.0s forwards;
+  }
+
+  .hero-cta a {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta a:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.6);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.4s forwards;
+  }
+
+  .hero-scroll span {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+    animation: scrollPulse 2.2s ease-in-out infinite;
+  }
+
+  /* Sections */
+  section { padding: 88px 40px; }
+  .section-inner { max-width: var(--max); margin: 0 auto; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--green-rule);
+  }
+
+  /* Over mij */
+  #over-mij { background: var(--white); }
+
+  .over-mij-block {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .over-mij-label-col {
+    text-align: right;
+    border-right: 2px solid var(--green-rule);
+    padding-right: 48px;
+  }
+
+  .over-mij-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+
+  .over-mij-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+  }
+
+  .over-mij-text {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .over-mij-text.visible { opacity: 1; transform: translateY(0); }
+
+  /* Match */
+  #match { background: var(--green-light); }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .match-card {
+    background: var(--white);
+    border-radius: 3px;
+    padding: 20px 22px;
+    border-left: 3px solid var(--green-accent);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), box-shadow 0.2s;
+  }
+
+  .match-card:hover { box-shadow: 0 4px 20px rgba(26,74,46,0.08); }
+  .match-card.visible { opacity: 1; transform: translateY(0); }
+
+  .match-card-ask {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 6px;
+  }
+
+  .match-card-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .match-card-value {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Timeline */
+  #ervaring { background: var(--white); }
+
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: var(--green-rule);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateX(-14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--green-accent);
+  }
+
+  .timeline-org {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 3px;
+  }
+
+  .timeline-role {
+    font-size: 12px;
+    color: var(--green-accent);
+    font-style: italic;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    letter-spacing: 0.02em;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Motivatie */
+  #motivatie { background: var(--green-light); }
+
+  .motivatie-block {
+    background: var(--white);
+    border-radius: 3px;
+    padding: 36px 40px;
+    border-left: 4px solid var(--green-dark);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .motivatie-block.visible { opacity: 1; transform: translateY(0); }
+
+  .motivatie-block p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .motivatie-block p:last-child { margin-bottom: 0; }
+
+  /* STARR */
+  #starr { background: var(--white); }
+
+  .starr-cards {
+    border: 1px solid var(--green-rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .starr-card {
+    border-bottom: 1px solid var(--green-rule);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+
+  .starr-card:last-child { border-bottom: none; }
+  .starr-card.visible { opacity: 1; transform: translateY(0); }
+
+  .starr-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--white);
+    transition: background 0.15s;
+  }
+
+  .starr-card-header:hover { background: var(--green-light); }
+
+  .starr-letter {
+    width: 34px;
+    height: 34px;
+    background: var(--green-dark);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .starr-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green-dark);
+    flex: 1;
+  }
+
+  .starr-chevron {
+    font-size: 11px;
+    color: var(--green-accent);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .starr-card.open .starr-chevron { transform: rotate(180deg); }
+
+  .starr-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease);
+  }
+
+  .starr-card.open .starr-card-body { max-height: 400px; }
+
+  .starr-card-content {
+    padding: 4px 24px 22px 74px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  /* Footer */
+  footer {
+    background: var(--green-dark);
+    padding: 48px 40px;
+    text-align: center;
+  }
+
+  .footer-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .footer-contact {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.75; }
+  }
+
+  /* Innovatie */
+  #innovatie { background: var(--green-light); }
+
+  .innovatie-intro {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 40px;
+    border-left: 2px solid var(--green-accent);
+    padding-left: 18px;
+  }
+
+  .innovatie-subtitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-top: 44px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--green-rule);
+  }
+
+  .trend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .trend-card {
+    background: var(--white);
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), box-shadow 0.2s;
+  }
+
+  .trend-card:hover { box-shadow: 0 4px 20px rgba(26,74,46,0.08); }
+  .trend-card.visible { opacity: 1; transform: translateY(0); }
+
+  .trend-left {
+    background: var(--green-light);
+    border-right: 1px solid var(--green-rule);
+    padding: 16px 16px;
+  }
+
+  .trend-num {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--green-accent);
+    margin-bottom: 5px;
+  }
+
+  .trend-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1.3;
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .trend-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    background: rgba(255,255,255,0.8);
+    padding: 2px 7px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .trend-right {
+    padding: 16px 20px;
+    background: var(--white);
+  }
+
+  .trend-desc {
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .trend-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .trend-bullets li {
+    font-size: 12px;
+    color: var(--muted);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .trend-bullets li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    color: var(--green-accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .strategie-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+
+  .strategie-card {
+    background: var(--white);
+    border-radius: 3px;
+    padding: 18px 20px;
+    border: 1px solid var(--green-rule);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+
+  .strategie-card.visible { opacity: 1; transform: translateY(0); }
+
+  .strategie-num {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--green-accent);
+    margin-bottom: 5px;
+  }
+
+  .strategie-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .strategie-body {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .aedes-box {
+    background: var(--white);
+    border-left: 4px solid var(--green-dark);
+    padding: 22px 26px;
+    border-radius: 2px;
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .aedes-box.visible { opacity: 1; transform: translateY(0); }
+
+  .aedes-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 6px;
+  }
+
+  .aedes-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+  }
+
+  .aedes-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 88px 24px 72px; }
+    section { padding: 60px 20px; }
+    .over-mij-block { grid-template-columns: 1fr; gap: 20px; }
+    .over-mij-label-col { text-align: left; border-right: none; padding-right: 0; padding-bottom: 16px; border-bottom: 2px solid var(--green-rule); }
+    .match-grid { grid-template-columns: 1fr; }
+    .motivatie-block { padding: 24px 20px; }
+    .starr-card-content { padding: 4px 16px 20px 16px; }
+    footer { padding: 40px 20px; }
+    .section-title { font-size: 22px; }
+    .trend-card { grid-template-columns: 1fr; }
+    .trend-left { border-right: none; border-bottom: 1px solid var(--green-rule); }
+    .strategie-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-name">Gaston Plantaz</div>
+  <ul class="nav-links">
+    <li><a href="#over-mij">Over mij</a></li>
+    <li><a href="#match">Match</a></li>
+    <li><a href="#ervaring">Ervaring</a></li>
+    <li><a href="#motivatie">Motivatie</a></li>
+    <li><a href="#starr">STARR</a></li>
+    <li><a href="#innovatie">Innovatie</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Sollicitatie Vivare</div>
+    <h1 class="hero-name">Gaston Plantaz</h1>
+    <div class="hero-title">Innovatiemanager</div>
+    <p class="hero-tagline">MSc Strategy &amp; Innovation, bewezen track record in verandermanagement en implementatie, en een oprechte drive om nieuwe functies op te bouwen die er nog niet waren.</p>
+    <div class="hero-cta"><a href="#match">Bekijk mijn profiel</a></div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<section id="over-mij">
+  <div class="section-inner">
+    <div class="over-mij-block">
+      <div class="over-mij-label-col">
+        <div class="over-mij-name">Gaston Plantaz</div>
+        <div class="over-mij-sub">Nijmegen · 1986</div>
+      </div>
+      <p class="over-mij-text">Een nieuwe functie zonder voorganger is een uitnodiging om zelf te definiëren wat er nodig is. De situaties waarin ik het best heb gefunctioneerd zijn altijd die geweest waar de structuur er nog niet was. Mijn achtergrond in Strategy &amp; Innovation vormt de theoretische basis; mijn ervaring in implementatie, verandermanagement en het bouwen van draagvlak vormt de praktijk. Ik maak nieuwe domeinen snel eigen, beweeg gemakkelijk door een organisatie en verbind graag de buitenwereld met wat er intern nodig is.</p>
+    </div>
+  </div>
+</section>
+
+<section id="match">
+  <div class="section-inner">
+    <div class="section-label">Aansluiting op de functie</div>
+    <h2 class="section-title">Wat de functie vraagt / wat ik meeneem</h2>
+    <div class="match-grid">
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Een nieuwe functie opbouwen zonder voorganger</div>
+        <div class="match-card-value">Bij Ambius richtte ik een volledig nieuw productsegment in voor de Benelux, inclusief structuur, processen en go-to-market aanpak. Bij CWS heb ik vanuit eigen initiatief een interne innovatieagenda opgezet. Ik start graag met een blanco vel.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Technologische én organisatorische innovatie verbinden</div>
+        <div class="match-card-value">Mijn MSc Strategy &amp; Innovation aan de Radboud focuste op precies dit snijvlak. In de praktijk heb ik ervaren dat succesvolle technologie-implementaties altijd ook een organisatievraagstuk zijn: adoptie, eigenaarschap en verandercapaciteit zijn minstens zo bepalend als de techniek zelf.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Implementeren en gebruikersadoptie realiseren</div>
+        <div class="match-card-value">Bij Ambius begeleidde ik de uitrol van nieuwe offertesoftware voor meer dan honderd gebruikers verspreid over meerdere landen, van procesanalyse tot gebruikersadoptie. De grootste les: adoptie begin je aan het begin, niet aan het einde van een implementatie.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Externe kennis naar binnen halen: Aedes, gemeenten, kennisinstellingen</div>
+        <div class="match-card-value">Als Programma Manager bij Ambius onderhield ik samenwerkingsverbanden met gemeenten, zorginstellingen en grote publieke opdrachtgevers. Ik weet hoe je structureel externe netwerken opbouwt en die vertaalt naar interne kansen.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Draagvlak bouwen van directie tot werkvloer</div>
+        <div class="match-card-value">In elke rol heb ik op meerdere niveaus tegelijk geopereerd: strategisch adviseren aan directie terwijl ik tegelijk collega's meekrijg op de werkvloer. Bij CWS coach ik medewerkers en adviseer ik directie en management; dat samenspel is mij vertrouwd.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">AI en digitalisering praktisch toepassen</div>
+        <div class="match-card-value">Bij CWS Hygiene heb ik vanuit eigen initiatief een interne ChatGPT-agent opgezet en werk ik aan een nieuw offertesysteem. Ik vertaal AI-mogelijkheden naar concrete werkprocessen, met de maatstaf of mensen er daadwerkelijk mee werken.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="ervaring">
+  <div class="section-inner">
+    <div class="section-label">Loopbaan</div>
+    <h2 class="section-title">Relevante werkervaring</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-org">CWS Hygiene Nederland <span style="font-weight:300;font-size:12px;">· 2023–heden</span></div>
+        <div class="timeline-role">Head of Sales Steering, Marketing &amp; Business Development</div>
+        <div class="timeline-desc">Vanuit eigen initiatief interne innovatieprojecten opgezet: een ChatGPT-agent voor interne kennisdeling en een nieuw offertesysteem. Adviseert directie en management over strategische prioriteiten. Geeft leiding aan twee multidisciplinaire teams (7 fte) en coacht medewerkers op nieuwe werkwijzen.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Rentokil Initial | Ambius (Benelux, Duitsland &amp; Zweden) <span style="font-weight:300;font-size:12px;">· 2021–2023</span></div>
+        <div class="timeline-role">Marketing &amp; Business Development Manager</div>
+        <div class="timeline-desc">Eindverantwoordelijk voor Marketing &amp; Business Development; lid van het internationale managementteam. Begeleidde de implementatie van nieuwe offertesoftware voor meer dan honderd gebruikers in meerdere landen, van procesanalyse tot gebruikersadoptie. Introduceerde nieuw productsegment voor de Benelux met gelijktijdige innovatie op meerdere vlakken.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Rentokil Initial | Ambius (Benelux &amp; Duitsland) <span style="font-weight:300;font-size:12px;">· 2019–2021</span></div>
+        <div class="timeline-role">Programma Manager · ASPIRE Internationaal Talentenprogramma</div>
+        <div class="timeline-desc">Bouwde samenwerkingsverbanden op met gemeenten, zorginstellingen, UWV en grote publieke opdrachtgevers. Zette tenderprocessen en externe netwerken op en adviseerde directie over partnerships en positionering.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Rentokil Initial | Ambius (Benelux) <span style="font-weight:300;font-size:12px;">· 2016–2018</span></div>
+        <div class="timeline-role">Project &amp; Tendermanager</div>
+        <div class="timeline-desc">Richtte een volledig nieuw productsegment in voor de Benelux, inclusief go-to-market aanpak en teamstructuur. Begeleidde grote in- en verkooptrajecten en bouwde werkgeversrelaties op.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">UWV <span style="font-weight:300;font-size:12px;">· 2011–2012</span></div>
+        <div class="timeline-role">Assistent Contractdeskundige re-integratie</div>
+        <div class="timeline-desc">Werkte mee aan contracten met re-integratiebedrijven binnen een publieke uitvoeringsorganisatie. Monitorde KPI's op naleving en resultaat; vroege ervaring met de maatschappelijke kant van beleid en uitvoering.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Radboud Universiteit Nijmegen <span style="font-weight:300;font-size:12px;">· 2011–2013</span></div>
+        <div class="timeline-role">MSc. Business Administration, Strategy &amp; Innovation · scriptie: 8</div>
+        <div class="timeline-desc">Focus op de wisselwerking tussen technologische en organisatorische innovatie. Strategisch denken en de vertaling naar tactische en operationele uitvoering; schakelen tussen organisatieniveaus en lange- en kortetermijnperspectief verbinden.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="motivatie">
+  <div class="section-inner">
+    <div class="section-label">Motivatiebrief</div>
+    <h2 class="section-title">Waarom Vivare</h2>
+    <div class="motivatie-block">
+      <p>Een nieuwe functie zonder voorganger is een uitnodiging om zelf te definiëren wat er nodig is. Woningcorporaties staan voor een veelzijdige opgave: verduurzamen op schaal, dienstverlening digitaliseren en de maatschappelijke rol versterken op een moment dat de vraag naar goed wonen alleen maar groeit. Vivare kiest er bewust voor die opgave aan te gaan door innovatie een vaste plek te geven, en dat spreekt mij aan: de situaties waarin ik het best heb gefunctioneerd zijn altijd die geweest waar de structuur er nog niet was.</p>
+      <p>Mijn Master Strategy &amp; Innovation aan de Radboud Universiteit, met focus op de wisselwerking tussen technologische en organisatorische innovatie, vormt de basis van waaruit ik werk. Ik maak nieuwe domeinen snel eigen, beweeg gemakkelijk door een organisatie en spreek de taal van directie tot werkvloer. Bij Ambius begeleidde ik de implementatie van nieuwe offertesoftware voor meer dan honderd gebruikers verspreid over meerdere landen, van procesanalyse tot gebruikersadoptie. In mijn huidige rol bij CWS Hygiene heb ik vanuit eigen initiatief een interne ChatGPT-agent opgezet, werk ik aan een nieuw offertesysteem en adviseer ik directie en management over waar de organisatie haar energie op moet richten.</p>
+      <p>Bij Ambius introduceerde ik een volledig nieuw productassortiment voor de Benelux, wat niet alleen om een nieuw aanbod vroeg maar om gelijktijdige innovatie op meerdere vlakken: stockbeheer, transportlogistiek, planningsprocessen en klantcommunicatie. Toch lukte het, omdat ik mensen vroeg betrok, liet zien wat het hen oplevert en kleine successen snel zichtbaar maakte. Een procedure die sneller loopt of een werkwijze die minder wrijving geeft, kan voor een huurder meer betekenen dan een ambitieus digitaliseringsproject. De maatstaf is altijd of mensen er daadwerkelijk mee werken.</p>
+      <p>De corporatiewereld is voor mij nieuw terrein, maar de rol van Innovatiemanager vraagt om precies dat: externe kennis en perspectieven naar binnen halen. Wonen raakt aan iets fundamenteels in het leven van mensen, en een woningcorporatie die innovatie inzet als middel om haar opgave beter te vervullen inspireert mij oprecht. Ik zou graag laten zien hoe ik die innovatiefunctie bij Vivare van de grond af aan kan neerzetten.</p>
+    </div>
+  </div>
+</section>
+
+<section id="starr">
+  <div class="section-inner">
+    <div class="section-label">Voorbeeld uit de praktijk</div>
+    <h2 class="section-title">Een situatie waarin ik innovatie op meerdere vlakken tegelijk moest organiseren</h2>
+    <div class="starr-cards">
+
+      <div class="starr-card open">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">S</div>
+          <div class="starr-card-title">Situatie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Bij Ambius besloten we een volledig nieuw productassortiment te introduceren voor de Benelux. Het ging niet alleen om een nieuw aanbod, maar om een structurele uitbreiding van het businessmodel: we betraden een segment waar we nog geen ervaring, processen of structuur voor hadden. Tegelijk moesten bestaande klanten en medewerkers meegenomen worden zonder dat de lopende operatie in gevaar kwam.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">T</div>
+          <div class="starr-card-title">Taak</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Mijn taak was de gehele introductie te trekken: van het in kaart brengen van de benodigde aanpassingen in stockbeheer, transportlogistiek en planningsprocessen tot het ontwikkelen van de go-to-market aanpak, het opzetten van de teamstructuur en het zorgen dat zowel de commerciële als de operationele kant klaar was voor de lancering.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">A</div>
+          <div class="starr-card-title">Actie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Ik begon met het in kaart brengen van alle afhankelijkheden: welke processen moesten veranderen, wie moest daarin mee en wat was de kritische volgorde. Daarna betrok ik de relevante collega's vroeg in het proces, niet als informatieverstrekkers maar als mede-ontwerpers. Ik maakte kleine successen direct zichtbaar (een logistiek knelpunt opgelost, een eerste klant live) zodat het momentum bleef. Intern stuurde ik op draagvlak door het verhaal steeds te verbinden aan wat het de medewerker zelf opleverde.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">R</div>
+          <div class="starr-card-title">Resultaat</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Het nieuwe segment werd succesvol gelanceerd in de gehele Benelux. De processen stonden, het team was getraind en de eerste klanten werden structureel bediend. Wat mij meer tevreden stelde dan de lancering zelf: de collega's hadden het gevoel dat ze het zelf hadden neergezet. Het segment werd daarna zelfstandig doorontwikkeld zonder dat ik het hoefde te trekken.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">R</div>
+          <div class="starr-card-title">Reflectie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Dit traject leerde mij dat innovatie op meerdere vlakken tegelijk niet lukt door alles parallel te sturen, maar door de juiste volgorde te vinden en eigenaarschap te distribueren. Als ik alles zelf had willen vasthouden, was het niet gelukt. Precies diezelfde beweging wil ik bij Vivare maken met de innovatiefunctie: een nieuw domein inrichten, mensen vroeg betrekken en zorgen dat het blijft staan als jij klaar bent.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="innovatie">
+  <div class="section-inner">
+    <div class="section-label">Sectoranalyse</div>
+    <h2 class="section-title">De innovatieopgave zoals ik die zie</h2>
+
+    <p class="innovatie-intro">Woningcorporaties staan voor een meervoudige opgave: verduurzamen op schaal, dienstverlening digitaliseren en de maatschappelijke rol versterken. Innovatie is geen doel op zichzelf, maar het middel om die opgave aan te kunnen. Dit is mijn analyse van de zeven trends die de sector nu het meest bepalen, en de bouwstenen van een effectieve innovatiestrategie.</p>
+
+    <div class="innovatie-subtitle">Zeven trends die de sector bepalen</div>
+
+    <div class="trend-list">
+
+      <div class="trend-card">
+        <div class="trend-left">
+          <div class="trend-num">01</div>
+          <div class="trend-title">Energietransitie &amp; verduurzaming op schaal</div>
+          <div class="trend-tag">Urgent</div>
+        </div>
+        <div class="trend-right">
+          <div class="trend-desc">De wettelijke CO₂-reductiedoelen en stijgende energielasten maken verduurzaming de grootste innovatieopgave. De uitdaging zit niet in de techniek maar in het organiseren van uitvoering op schaal.</div>
+          <ul class="trend-bullets">
+            <li>Nul-op-de-meter renovaties en warmtepompen op wijkniveau</li>
+            <li>Data-gedreven woningopname tools voor prioritering</li>
+            <li>Innovatieve financieringsconstructies (revolving funds, subsidieoptimalisatie)</li>
+            <li>Energiearmoede als sociaal innovatievraagstuk</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-left">
+          <div class="trend-num">02</div>
+          <div class="trend-title">Data-gedreven werken &amp; AI</div>
+          <div class="trend-tag">Opkomend</div>
+        </div>
+        <div class="trend-right">
+          <div class="trend-desc">Corporaties beschikken over enorme hoeveelheden woning- en bewonersdata, maar benutten die nog beperkt. AI en data-analyses bieden kansen voor betere besluitvorming en dienstverlening.</div>
+          <ul class="trend-bullets">
+            <li>Predictief onderhoud via IoT-sensoren in woningen</li>
+            <li>AI-ondersteunde portefeuillesturing en investeringsprioriteiten</li>
+            <li>Chatbots en geautomatiseerde huurderscommunicatie</li>
+            <li>Fraudedetectie en doorstromingsanalyse</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-left">
+          <div class="trend-num">03</div>
+          <div class="trend-title">Digitale huurdersdienstverlening</div>
+          <div class="trend-tag">In uitvoering</div>
+        </div>
+        <div class="trend-right">
+          <div class="trend-desc">Huurders verwachten dezelfde digitale gebruikservaring als bij commerciële dienstverleners. Veel corporaties lopen hier achter en zien het als een concrete innovatiepijler.</div>
+          <ul class="trend-bullets">
+            <li>Selfservice-portalen voor reparaties, mutaties en betalingen</li>
+            <li>Digitale huurcontracten en online intake</li>
+            <li>Persoonlijke bewonersapps met real-time inzicht in energieverbruik</li>
+            <li>Toegankelijkheid voor digitaal minder vaardige huurders als randvoorwaarde</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-left">
+          <div class="trend-num">04</div>
+          <div class="trend-title">Industrieel &amp; circulair bouwen</div>
+          <div class="trend-tag">Groeiend</div>
+        </div>
+        <div class="trend-right">
+          <div class="trend-desc">Om de bouwopgave te halen zijn nieuwe bouwmethoden noodzakelijk. Traditionele bouw is te traag, te duur en te arbeidsintensief. Prefabricage en circulaire principes winnen terrein.</div>
+          <ul class="trend-bullets">
+            <li>Modulaire en prefab woningbouw voor snellere oplevering</li>
+            <li>Materialenpaspoorten en circulair sloopbeleid</li>
+            <li>Samenwerking met innovatieve aannemers en PropTech-partijen</li>
+            <li>Nieuwe woonvormen: flexwoningen, geclusterd wonen, generatiemix</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-left">
+          <div class="trend-num">05</div>
+          <div class="trend-title">Leefbaarheid &amp; sociale innovatie</div>
+          <div class="trend-tag">Strategisch</div>
+        </div>
+        <div class="trend-right">
+          <div class="trend-desc">Corporaties worden aangesproken op hun brede maatschappelijke rol. Innovatie in leefbaarheid vraagt om nieuwe samenwerkingsvormen met gemeenten, welzijn en zorg.</div>
+          <ul class="trend-bullets">
+            <li>Participatieplatformen en bewonerscoöperaties</li>
+            <li>Data-gedreven aanpak van kwetsbare wijken</li>
+            <li>Wonen-zorg-welzijn combinaties voor vergrijzende doelgroepen</li>
+            <li>Preventieve aanpak van schulden en huisuitzettingen via vroeg-signalering</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-left">
+          <div class="trend-num">06</div>
+          <div class="trend-title">Open innovatie &amp; ecosystemen</div>
+          <div class="trend-tag">Volwassen</div>
+        </div>
+        <div class="trend-right">
+          <div class="trend-desc">Geen enkele corporatie kan alle innovatie zelf ontwikkelen. Het scouten en inbedden van externe kennis, startups en sectorpartnerships wordt een kerncompetentie.</div>
+          <ul class="trend-bullets">
+            <li>Partnerships met PropTech-startups en scaleups</li>
+            <li>Kennisuitwisseling via Aedes-innovatieprogramma's en regionale corporatienetwerken</li>
+            <li>Samenwerking met TU Delft, Hogescholen en Wageningen UR</li>
+            <li>Cross-sectorale pilots met energie-, zorg- en mobiliteitspartners</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-left">
+          <div class="trend-num">07</div>
+          <div class="trend-title">Organisatie-innovatie &amp; wendbaarheid</div>
+          <div class="trend-tag">Intern</div>
+        </div>
+        <div class="trend-right">
+          <div class="trend-desc">De corporatiesector heeft een reputatie van interne traagheid. Organisaties die innovatie structureel willen verankeren moeten ook de eigen werkwijze vernieuwen.</div>
+          <ul class="trend-bullets">
+            <li>Agile en scrum-werkwijzen in niet-IT-teams</li>
+            <li>Interne innovatiehubs en ambassadeursnetwerken</li>
+            <li>Een cultuur waarin fouten maken mag, als voorwaarde voor leren</li>
+            <li>Innovatiebudgetten los van de reguliere P&amp;C-cyclus</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="innovatie-subtitle">Acht bouwstenen voor een effectieve innovatiestrategie</div>
+
+    <div class="strategie-grid">
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 01</div>
+        <div class="strategie-title">Dubbele horizon: exploitatie én exploratie</div>
+        <div class="strategie-body">Innovatie is niet alleen disruptie. Een sterk portfolio combineert korte-termijn procesverbeteringen (horizon 1) met midlange transformaties (horizon 2) en langetermijnverkenningen (horizon 3). Wie alleen op H1 stuurt, loopt achter. Wie alleen op H3 focust, verliest de organisatie.</div>
+      </div>
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 02</div>
+        <div class="strategie-title">Portfoliobenadering: balans en prioritering</div>
+        <div class="strategie-body">Niet elk idee verdient een apart besluit. Een portfoliobenadering maakt het mogelijk om initiatieven te wegen op impact, haalbaarheid en strategische fit, en om het totaal te balanceren. De innovatiemanager stuurt op het geheel, niet op losse projecten.</div>
+      </div>
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 03</div>
+        <div class="strategie-title">Outside-in: de buitenwereld actief naar binnen halen</div>
+        <div class="strategie-body">De meeste relevante kennis zit buiten de corporatie. Een sterke innovatiestrategie organiseert structureel hoe externe trends, partnerkennis en technologische ontwikkelingen worden gesignaleerd en vertaald naar interne kansen.</div>
+      </div>
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 04</div>
+        <div class="strategie-title">Bewonersgedreven innovatie</div>
+        <div class="strategie-body">In de corporatiesector is de huurder zelden de aanjager van innovatie, maar altijd de toetssteen. Elke innovatie moet aantoonbaar bijdragen aan de ervaring, betaalbaarheid of leefomgeving van bewoners. Anders is het intern genot, geen maatschappelijke waarde.</div>
+      </div>
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 05</div>
+        <div class="strategie-title">Gedistribueerd eigenaarschap</div>
+        <div class="strategie-body">Innovatie die alleen op de innovatieafdeling leeft, sterft als de projecten eindigen. Een sterk model distribueert innovatiedenken door de hele organisatie via ambassadeurs, innovatiebudgetten per team en structurele leerruimte.</div>
+      </div>
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 06</div>
+        <div class="strategie-title">Snel leren: pilot, meten, schalen of stoppen</div>
+        <div class="strategie-body">De grootste valkuil is de eeuwige pilot die nooit schaalt. Een moderne innovatiestrategie hanteert heldere go/no-go criteria, korte evaluatiemomenten en de bereidheid om te stoppen met wat niet werkt. Leren is het product, niet het rapport.</div>
+      </div>
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 07</div>
+        <div class="strategie-title">Directiecommitment én bottom-up energie</div>
+        <div class="strategie-body">Innovatie zonder mandaat van de top wordt doodgeknepen door de operatie. Innovatie zonder energie van de werkvloer wordt een papieren strategie. Beide zijn noodzakelijk. De innovatiemanager is de verbinding tussen beide lagen.</div>
+      </div>
+
+      <div class="strategie-card">
+        <div class="strategie-num">Bouwsteen 08</div>
+        <div class="strategie-title">Impact meten: outcomes, niet outputs</div>
+        <div class="strategie-body">Het aantal pilots en ideeën is geen bewijs van innovatiekracht. Wat telt is de uitkomst: lagere energielasten voor huurders, kortere wachttijden, betere leefbaarheid. Innovatiemetrices moeten aansluiten op de maatschappelijke doelstellingen van de corporatie.</div>
+      </div>
+
+    </div>
+
+    <div class="aedes-box">
+      <div class="aedes-label">Sectorcontext</div>
+      <div class="aedes-title">Aedes &amp; de innovatieagenda van de sector</div>
+      <div class="aedes-body">Brancheorganisatie Aedes coördineert sectorbreed innovatiebeleid via programma's als Woonstandaard, Digitale Agenda Woningcorporaties en het Versnellingshuis Energie &amp; Gebouwde Omgeving. Sterke innovatiemanagers in de sector zijn actief in deze netwerken en brengen sectorinzichten terug naar de eigen organisatie. Daarnaast bieden regionale gemeentenetwerken en het G40-stedennetwerk waardevolle verbindingen voor gezamenlijke pilots op het snijvlak van wonen, zorg en leefbaarheid.</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Gaston Plantaz</div>
+  <div class="footer-contact">06 10 78 56 65 &nbsp;&middot;&nbsp; gastonplantaz@gmail.com &nbsp;&middot;&nbsp; Nijmegen</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay) || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.match-card').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.timeline-item').forEach((el, i) => {
+    el.dataset.delay = i * 110;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.over-mij-text').forEach(el => observer.observe(el));
+  document.querySelectorAll('.motivatie-block').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.starr-card').forEach((el, i) => {
+    el.dataset.delay = i * 70;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.trend-card').forEach((el, i) => {
+    el.dataset.delay = i * 60;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.strategie-card').forEach((el, i) => {
+    el.dataset.delay = i * 60;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.aedes-box').forEach(el => observer.observe(el));
+
+  function toggleStarr(header) {
+    header.parentElement.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
