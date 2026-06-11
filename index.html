@@ -10,9 +10,10 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
+    --dark:    #1c2738;
     --ink:     #1a1a1a;
     --muted:   #6b6b6b;
-    --accent:  #2d5986;
+    --accent:  #3d7ab5;
     --rule:    #e4e4e0;
     --bg:      #f8f8f6;
     --white:   #ffffff;
@@ -31,100 +32,100 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Layout ── */
   .page {
-    max-width: 780px;
+    max-width: 860px;
     margin: 0 auto;
     background: var(--white);
+    box-shadow: 0 0 80px rgba(0,0,0,0.08);
     min-height: 100vh;
-    box-shadow: 0 0 80px rgba(0,0,0,0.06);
   }
 
-  /* ── Header ── */
-  .header {
-    padding: 56px 64px 48px;
-    border-bottom: 1px solid var(--rule);
+  /* ── Hero split ── */
+  .hero {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 40px;
-    align-items: start;
+    grid-template-columns: 1fr 340px;
+    min-height: 500px;
   }
 
-  .header-left { }
-
-  .header-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .header-name {
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.1;
-    margin-bottom: 10px;
-  }
-
-  .header-title {
-    font-size: 15px;
-    font-weight: 300;
-    color: var(--muted);
-    margin-bottom: 22px;
-    line-height: 1.5;
-  }
-
-  .header-contact {
+  .hero-left {
+    background: var(--dark);
+    padding: 64px 56px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    justify-content: center;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .hero-name {
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 340px;
+  }
+
+  .hero-divider {
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+    margin-bottom: 28px;
+  }
+
+  .hero-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .contact-item {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.5);
     text-decoration: none;
+    transition: color 0.2s;
   }
 
-  .contact-item:hover { color: var(--accent); }
+  .contact-item:hover { color: var(--white); }
 
-  /* ── Foto placeholder ── */
-  .foto {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 1px dashed var(--rule);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  /* ── Hero foto ── */
+  .hero-right {
+    background: var(--white);
+    position: relative;
     overflow: hidden;
   }
 
-  .foto img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
-  .foto-placeholder {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--rule);
+  .hero-right img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 105%;
+    width: auto;
+    object-fit: contain;
+    object-position: bottom center;
   }
 
   /* ── Secties ── */
   .section {
-    padding: 40px 64px;
+    padding: 44px 64px;
     border-bottom: 1px solid var(--rule);
   }
 
@@ -136,14 +137,34 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
 
   /* ── Intro ── */
   .intro p {
     font-size: 14.5px;
-    line-height: 1.8;
+    line-height: 1.85;
     color: var(--ink);
+    max-width: 640px;
+  }
+
+  /* ── Competenties ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    padding: 5px 12px;
+    border-radius: 2px;
   }
 
   /* ── Timeline ── */
@@ -161,7 +182,7 @@
 
   .tl-item {
     position: relative;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
   }
 
   .tl-item:last-child { margin-bottom: 0; }
@@ -208,7 +229,6 @@
     font-style: italic;
     margin-bottom: 5px;
     font-family: var(--mono);
-    letter-spacing: 0.01em;
   }
 
   .tl-desc {
@@ -250,31 +270,23 @@
     flex-shrink: 0;
   }
 
-  /* ── Competenties ── */
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    padding: 5px 12px;
-    border-radius: 2px;
-  }
-
   /* ── Mobile ── */
-  @media (max-width: 600px) {
-    .header { padding: 36px 24px 32px; grid-template-columns: 1fr; }
-    .foto { width: 88px; height: 88px; order: -1; }
-    .header-name { font-size: 30px; }
-    .section { padding: 32px 24px; }
+  @media (max-width: 640px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: unset;
+    }
+
+    .hero-left { padding: 48px 28px; }
+
+    .hero-name { font-size: 34px; }
+
+    .hero-right {
+      height: 300px;
+    }
+
+    .section { padding: 36px 28px; }
+
     .tl-header { flex-direction: column; gap: 2px; }
   }
 </style>
@@ -282,28 +294,28 @@
 <body>
 <div class="page">
 
-  <!-- Header -->
-  <div class="header">
-    <div class="header-left">
-      <div class="header-label">Profiel</div>
-      <div class="header-name">Gaston Plantaz</div>
-      <div class="header-title">Strategie &amp; operatie &nbsp;·&nbsp; Contract- en relatiemanagement &nbsp;·&nbsp; Publieke sector</div>
-      <div class="header-contact">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-label">Profiel</div>
+      <div class="hero-name">Gaston<br>Plantaz</div>
+      <div class="hero-title">Contract- en accountmanagement &nbsp;·&nbsp; Strategie &amp; operatie &nbsp;·&nbsp; Publieke sector</div>
+      <div class="hero-divider"></div>
+      <div class="hero-contact">
         <a class="contact-item" href="tel:0610785665">06 10 78 56 65</a>
         <a class="contact-item" href="mailto:gastonplantaz@gmail.com">gastonplantaz@gmail.com</a>
         <span class="contact-item">Nijmegen</span>
       </div>
     </div>
-    <div class="foto">
-      <!-- Vervang onderstaande regel door: <img src="foto.jpg" alt="Gaston Plantaz"> -->
-      <span class="foto-placeholder">foto</span>
+    <div class="hero-right">
+      <img src="foto.png" alt="Gaston Plantaz">
     </div>
   </div>
 
   <!-- Introductie -->
   <div class="section intro">
     <div class="section-label">Over mij</div>
-    <p>Na ruim tien jaar in commerciële omgevingen, in rollen op het snijvlak van strategie, contractmanagement en stakeholdermanagement, zet ik mijn kracht nu in op plekken waar goede dienstverlening er echt toe doet. Ik ben analytisch, verbindend en gewend te schakelen tussen belangen, niveaus en disciplines. Met ervaring aan beide kanten van de contracttafel, zowel commercieel als publiek, ben ik snel inzetbaar in complexe samenwerkingsverbanden.</p>
+    <p>Na ruim tien jaar in commerciële omgevingen, op het snijvlak van strategie, contractmanagement en stakeholdermanagement, zet ik mijn kracht in op plekken waar goede dienstverlening er echt toe doet. Analytisch, verbindend en gewend te schakelen tussen belangen, niveaus en disciplines. Met ervaring aan beide kanten van de contracttafel ben ik snel inzetbaar in complexe samenwerkingsverbanden.</p>
   </div>
 
   <!-- Competenties -->
