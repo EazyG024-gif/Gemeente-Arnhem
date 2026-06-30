@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaston Plantaz — Beleidsadviseur (Projectleider) WerkBedrijf Rijk van Nijmegen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-dark: #1a4a2e;
+    --green-mid:  #2d6b47;
+    --green-accent: #4a9e6a;
+    --green-light: #f0f5f1;
+    --green-rule:  #c5d5ca;
+    --ink:   #0e1a14;
+    --muted: #4a6355;
+    --white: #ffffff;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono:  'DM Mono', monospace;
+    --max:   800px;
+    --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    color: var(--ink);
+    background: var(--white);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.35s var(--ease), box-shadow 0.35s;
+  }
+
+  nav.scrolled {
+    background: rgba(26, 74, 46, 0.97);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    background: var(--green-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 40px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 75% 40%, rgba(74,158,106,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 80%, rgba(74,158,106,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .hero-inner { max-width: var(--max); margin: 0 auto; width: 100%; }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+  }
+
+  .hero-name {
+    font-size: clamp(52px, 8vw, 80px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.4s forwards;
+  }
+
+  .hero-title {
+    font-size: clamp(17px, 2.4vw, 22px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.6s forwards;
+  }
+
+  .hero-tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    max-width: 480px;
+    line-height: 1.75;
+    border-left: 2px solid var(--green-accent);
+    padding-left: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.8s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.0s forwards;
+  }
+
+  .hero-cta a {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta a:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.6);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 1.4s forwards;
+  }
+
+  .hero-scroll span {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+    animation: scrollPulse 2.2s ease-in-out infinite;
+  }
+
+  /* Sections */
+  section { padding: 88px 40px; }
+  .section-inner { max-width: var(--max); margin: 0 auto; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--green-rule);
+  }
+
+  /* Profiel */
+  #profiel { background: var(--white); }
+
+  .profiel-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .profiel-text {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .profiel-text.visible { opacity: 1; transform: translateY(0); }
+  .profiel-text p { margin-bottom: 16px; }
+  .profiel-text p:last-child { margin-bottom: 0; }
+
+  .profiel-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stat-item {
+    padding: 16px 20px;
+    background: var(--green-light);
+    border-left: 4px solid var(--green-accent);
+    opacity: 0;
+    transform: translateX(14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+
+  .stat-item.visible { opacity: 1; transform: translateX(0); }
+
+  .stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Match */
+  #match { background: var(--green-light); }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .match-card {
+    background: var(--white);
+    border-radius: 3px;
+    padding: 20px 22px;
+    border-left: 3px solid var(--green-accent);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), box-shadow 0.2s;
+  }
+
+  .match-card:hover { box-shadow: 0 4px 20px rgba(26,74,46,0.08); }
+  .match-card.visible { opacity: 1; transform: translateY(0); }
+
+  .match-card-ask {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 6px;
+  }
+
+  .match-card-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .match-card-value {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Werkervaring */
+  #ervaring { background: var(--white); }
+
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: var(--green-rule);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateX(-14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--green-accent);
+  }
+
+  .timeline-org {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 3px;
+  }
+
+  .timeline-role {
+    font-size: 12px;
+    color: var(--green-accent);
+    font-style: italic;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    letter-spacing: 0.02em;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Motivatie */
+  #motivatie { background: var(--green-dark); }
+
+  #motivatie .section-title { color: var(--white); border-bottom-color: rgba(255,255,255,0.15); }
+  #motivatie .section-label { color: var(--green-accent); }
+
+  .motivatie-block {
+    border-left: 3px solid var(--green-accent);
+    padding-left: 28px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .motivatie-block.visible { opacity: 1; transform: translateY(0); }
+
+  .motivatie-block p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 18px;
+  }
+
+  .motivatie-block p:last-child { margin-bottom: 0; }
+
+  .motivatie-quote {
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  /* STARR */
+  #starr { background: var(--green-light); }
+
+  .starr-cards {
+    border: 1px solid var(--green-rule);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .starr-card {
+    border-bottom: 1px solid var(--green-rule);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+
+  .starr-card:last-child { border-bottom: none; }
+  .starr-card.visible { opacity: 1; transform: translateY(0); }
+
+  .starr-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--white);
+    transition: background 0.15s;
+  }
+
+  .starr-card-header:hover { background: var(--green-light); }
+
+  .starr-letter {
+    width: 34px;
+    height: 34px;
+    background: var(--green-dark);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .starr-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green-dark);
+    flex: 1;
+  }
+
+  .starr-chevron {
+    font-size: 11px;
+    color: var(--green-accent);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .starr-card.open .starr-chevron { transform: rotate(180deg); }
+
+  .starr-card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease);
+  }
+
+  .starr-card.open .starr-card-body { max-height: 500px; }
+
+  .starr-card-content {
+    padding: 4px 24px 22px 74px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  /* Opleiding & Skills */
+  #opleiding { background: var(--white); }
+
+  .opl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .opl-list { display: flex; flex-direction: column; gap: 18px; }
+
+  .opl-degree {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .opl-school {
+    font-size: 12px;
+    color: var(--green-mid);
+    margin-bottom: 2px;
+  }
+
+  .opl-year {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .skill-group { margin-bottom: 20px; }
+
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .skill-tag {
+    font-size: 12px;
+    background: var(--green-light);
+    color: var(--green-dark);
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .skill-tag.key {
+    background: var(--green-dark);
+    color: var(--white);
+  }
+
+  /* Contact */
+  #contact { background: var(--green-light); text-align: center; }
+
+  .contact-name {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 12px;
+  }
+
+  .contact-details {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .contact-item strong {
+    color: var(--green-dark);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--green-dark);
+    padding: 48px 40px;
+    text-align: center;
+  }
+
+  .footer-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .footer-contact {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.75; }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 88px 24px 72px; }
+    section { padding: 60px 20px; }
+    .profiel-grid { grid-template-columns: 1fr; }
+    .match-grid { grid-template-columns: 1fr; }
+    .opl-grid { grid-template-columns: 1fr; }
+    .motivatie-block { padding-left: 18px; }
+    .starr-card-content { padding: 4px 16px 20px 16px; }
+    footer { padding: 40px 20px; }
+    .section-title { font-size: 22px; }
+    .contact-details { flex-direction: column; gap: 12px; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-name">Gaston Plantaz</div>
+  <ul class="nav-links">
+    <li><a href="#profiel">Profiel</a></li>
+    <li><a href="#match">Match</a></li>
+    <li><a href="#ervaring">Ervaring</a></li>
+    <li><a href="#motivatie">Motivatie</a></li>
+    <li><a href="#starr">Voorbeeld</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Sollicitatie &mdash; WerkBedrijf Rijk van Nijmegen</div>
+    <h1 class="hero-name">Gaston Plantaz</h1>
+    <div class="hero-title">Beleidsadviseur (Projectleider)</div>
+    <p class="hero-tagline">Verbindt strategie en uitvoering en heeft een bewezen vermogen om beleid te vertalen naar een werkbare praktijk en concrete resultaten.</p>
+    <div class="hero-cta"><a href="#match">Bekijk mijn profiel</a></div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PROFIEL -->
+<section id="profiel">
+  <div class="section-inner">
+    <div class="section-label">Over mij</div>
+    <h2 class="section-title">Profiel</h2>
+    <div class="profiel-grid">
+      <div class="profiel-text">
+        <p>De uitdagingen op de regionale arbeidsmarkt vragen meer dan kennis van wet- en regelgeving. Ze vragen mensen die complexe vraagstukken kunnen analyseren, partijen kunnen verbinden en beleidsvoornemens kunnen vertalen naar concrete resultaten. Juist op dat snijvlak werk ik al jaren.</p>
+        <p>Mijn loopbaan combineert analytisch denkvermogen, projectregie en het vermogen om helder te adviseren op meerdere niveaus tegelijk. Ik schakel moeiteloos tussen de bestuurskamer en de werkvloer en spreek beide talen.</p>
+        <p>Mijn achtergrond in het sociale domein via het UWV geeft mij een reëel beeld van hoe wet- en regelgeving in een publieke uitvoeringsorganisatie werkt. WerkBedrijf ken ik bovendien persoonlijk: onlangs voerde ik voor de positie van Commercieel Manager meerdere gesprekken binnen de organisatie. De cultuur, de samenwerking tussen gemeenten en de maatschappelijke opgave spreken mij oprecht aan.</p>
+      </div>
+      <div class="profiel-stats">
+        <div class="stat-item">
+          <div class="stat-num">MSc</div>
+          <div class="stat-label">Business Administration · Strategy &amp; Innovation · Radboud · scriptie 8</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">UWV</div>
+          <div class="stat-label">Ervaring re-integratie, contractmanagement &amp; sociale wetgeving</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Jaar ervaring in projectleiding, advies en stakeholdermanagement</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">SROI</div>
+          <div class="stat-label">Brede ervaring social return in publieke aanbestedingstrajecten</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATCH -->
+<section id="match">
+  <div class="section-inner">
+    <div class="section-label">Aansluiting op de functie</div>
+    <h2 class="section-title">Wat de functie vraagt / wat ik meeneem</h2>
+    <div class="match-grid">
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Beleid vertalen naar werkbare praktijk</div>
+        <div class="match-card-value">Als Programma Manager was het vertalen van strategie naar concrete uitvoering mijn dagelijkse werk. Ik bewaakte planning en voortgang en zorgde dat beleid en afspraken ook daadwerkelijk in de organisatie landden.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Projectleiding op planning, voortgang en kwaliteit</div>
+        <div class="match-card-value">Als Project & Tendermanager begeleidde ik complexe trajecten van aanvraag tot implementatie. Ik ben gewend regie te houden op meerdere lijnen tegelijk en betrokkenen actief mee te nemen in het proces.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Adviseren richting directie en management</div>
+        <div class="match-card-value">Als Business Controller vertaalde ik data naar concrete aanbevelingen voor directie. In mijn huidige rol adviseer ik management gevraagd en ongevraagd over kansen, knelpunten en verbeteringen.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Schrijven van bestuurlijke stukken en evaluaties</div>
+        <div class="match-card-value">Ik schreef businesscases, managementrapportages en bestuurlijke stukken voor directie en management. Helder schrijven voor meerdere doelgroepen tegelijk is voor mij vertrouwd terrein.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Aanspreekpunt voor gemeenten en partners</div>
+        <div class="match-card-value">Bij Ambius coördineerde ik trajecten voor publieke opdrachtgevers, waaronder gemeenten, UWV en zorginstellingen. Ik ben gewend te fungeren als verbindende schakel tussen organisaties met uiteenlopende belangen.</div>
+      </div>
+
+      <div class="match-card">
+        <div class="match-card-ask">De functie vraagt</div>
+        <div class="match-card-label">Kennis van het sociale domein</div>
+        <div class="match-card-value">Bij het UWV werkte ik mee aan contracten met re-integratiebedrijven en monitorde ik KPI's op re-integratiesucces. Vanuit aanbestedingstrajecten ken ik SROI en de praktische werking van sociale wetgeving.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WERKERVARING -->
+<section id="ervaring">
+  <div class="section-inner">
+    <div class="section-label">Loopbaan</div>
+    <h2 class="section-title">Relevante werkervaring</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-org">CWS Hygiene Nederland <span style="font-weight:300;font-size:12px;">&middot; 2023&ndash;heden</span></div>
+        <div class="timeline-role">Head of Marketing, Business Development &amp; Sales Steering</div>
+        <div class="timeline-desc">Haalt actief signalen op bij externe partijen en vertaalt deze naar concrete adviezen en verbeteringen richting management. Geeft leiding aan multidisciplinaire teams en borgt dat plannen en afspraken daadwerkelijk worden gerealiseerd. Fungeert als sparringpartner bij complexe vraagstukken over samenwerking, uitvoering en beleid.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Rentokil Initial | Ambius &mdash; Benelux, Duitsland &amp; Zweden <span style="font-weight:300;font-size:12px;">&middot; 2021&ndash;2023</span></div>
+        <div class="timeline-role">Marketing &amp; Business Development Manager</div>
+        <div class="timeline-desc">Lid internationaal managementteam. Ontwikkelde proposities en strategieën, stuurde op KPI's en bouwde structurele samenwerkingsverbanden op met externe partners en brancheorganisaties in meerdere landen.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Rentokil Initial | Ambius &mdash; Benelux &amp; Duitsland <span style="font-weight:300;font-size:12px;">&middot; 2019&ndash;2021</span></div>
+        <div class="timeline-role">Programma Manager &middot; ASPIRE Internationaal Talentenprogramma</div>
+        <div class="timeline-desc">Leidde internationale projecten van A tot Z: van planning en vraagstelling tot oplevering. Coördineerde trajecten voor publieke opdrachtgevers (gemeenten, UWV, zorginstellingen) met aansturing van interne en externe partijen op proces, kwaliteit en resultaat. Adviseerde directie over strategie, structuur en samenwerkingsmodellen. Deed ruime ervaring op met SROI in aanbestedingstrajecten.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Rentokil Initial | Ambius &mdash; Benelux <span style="font-weight:300;font-size:12px;">&middot; 2016&ndash;2018</span></div>
+        <div class="timeline-role">Project &amp; Tendermanager</div>
+        <div class="timeline-desc">Begeleidde complexe trajecten van aanvraag tot implementatie. Richtte een nieuw productsegment operationeel in voor de Benelux: processen, rollen en verantwoordelijkheden gedefinieerd en geborgd. Zorgde voor structuur en draagvlak in een complexe organisatorische keten.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">Rentokil Initial | Ambius &mdash; Benelux <span style="font-weight:300;font-size:12px;">&middot; 2014&ndash;2015</span></div>
+        <div class="timeline-role">Business Controller</div>
+        <div class="timeline-desc">Ondersteunde directie met data-analyses en managementrapportages. Signaleerde knelpunten en verbetermogelijkheden in processen en vertaalde die naar concrete verbeteradviezen.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-org">UWV <span style="font-weight:300;font-size:12px;">&middot; 2011&ndash;2012</span></div>
+        <div class="timeline-role">Assistent Contractdeskundige Re-integratie</div>
+        <div class="timeline-desc">Werkte mee aan contracten met re-integratiebedrijven en monitorde KPI's op re-integratiesucces in het sociale domein. Kreeg inzicht in de samenwerking tussen overheid, uitvoeringsorganisaties en marktpartijen.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MOTIVATIE -->
+<section id="motivatie">
+  <div class="section-inner">
+    <div class="section-label">Waarom WerkBedrijf Rijk van Nijmegen</div>
+    <h2 class="section-title">Mijn motivatie</h2>
+    <div class="motivatie-block">
+      <p class="motivatie-quote">"Beleid en uitvoering zijn twee werelden die voortdurend op elkaar moeten worden afgestemd. Precies daar wil ik het verschil maken."</p>
+      <p>Ik realiseer mij dat mijn achtergrond niet die van een klassieke beleidsadviseur is. Wat ik meebring, heb ik in de praktijk bewezen: projectregie, analytisch denkvermogen, het schrijven van bestuurlijke stukken en het vermogen om snel nieuwe domeinen te doorgronden.</p>
+      <p>Onlangs voerde ik voor de positie van Commercieel Manager meerdere gesprekken binnen het WerkBedrijf. Die gesprekken hebben mij een goed beeld gegeven van de cultuur, de regionale samenwerking tussen gemeenten en de maatschappelijke opgave waarvoor het WerkBedrijf Rijk van Nijmegen staat. Ze hebben mijn motivatie alleen maar vergroot.</p>
+      <p>Juist het werken aan vraagstukken die bijdragen aan duurzame participatie en bestaanszekerheid geeft mij de maatschappelijke betekenis die ik in mijn volgende stap zoek.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STARR -->
+<section id="starr">
+  <div class="section-inner">
+    <div class="section-label">Voorbeeld uit de praktijk</div>
+    <h2 class="section-title">Een situatie waarin ik beleid vertaalde naar concrete uitvoering met meerdere stakeholders</h2>
+    <div class="starr-cards">
+
+      <div class="starr-card open">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">S</div>
+          <div class="starr-card-title">Situatie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Bij Ambius was ik verantwoordelijk voor het leiden van een implementatietraject waarbij nieuwe werkwijzen en procesafspraken moesten worden vertaald naar de dagelijkse uitvoering in meerdere landen. De organisatie werkte met publieke opdrachtgevers, waaronder gemeenten en UWV, waarbij elke partij eigen verwachtingen en vereisten had. Het risico was dat beleidskeuzes op papier goed leken maar in de uitvoeringspraktijk niet werkbaar bleken.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">T</div>
+          <div class="starr-card-title">Taak</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Mijn taak was het coördineren van de implementatie: van het vertalen van gemaakte afspraken naar werkbare processtappen, tot het bewaken van planning en voortgang en het zorgen dat alle betrokken partijen intern en extern op één lijn zaten. Ik fungeerde als centraal aanspreekpunt voor zowel de interne organisatie als de externe opdrachtgevers.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">A</div>
+          <div class="starr-card-title">Actie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Ik bracht als eerste de knelpunten in kaart via gesprekken met uitvoerende teams en externe partijen. Op basis daarvan vertaalde ik de afspraken naar concrete stappen die voor iedereen werkbaar waren. Ik schreef heldere procesbeschrijvingen en stuurde regelmatig bij op basis van voortgangssignalen. Waar belangen botsten, zorgde ik voor gerichte afstemming en draagvlak voordat beslissingen werden genomen.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">R</div>
+          <div class="starr-card-title">Resultaat</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">De implementatie werd binnen de gestelde termijn en kwaliteitseisen afgerond. De betrokken teams werkten met een heldere processtructuur die door alle partijen werd gedragen. De opdrachtgevers gaven aan dat de communicatie en afstemming gedurende het traject transparant en betrouwbaar waren verlopen.</div>
+        </div>
+      </div>
+
+      <div class="starr-card">
+        <div class="starr-card-header" onclick="toggleStarr(this)">
+          <div class="starr-letter">R</div>
+          <div class="starr-card-title">Reflectie</div>
+          <div class="starr-chevron">&#9660;</div>
+        </div>
+        <div class="starr-card-body">
+          <div class="starr-card-content">Dit traject bevestigde voor mij dat het succes van beleidsvertaling zit in de details van de uitvoering, niet in de kwaliteit van het beleid zelf. Draagvlak creëren bij partijen met uiteenlopende belangen, helder communiceren over voortgang en tijdig bijsturen: dat zijn de vaardigheden die ik bij WerkBedrijf Rijk van Nijmegen wil inzetten.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OPLEIDING & SKILLS -->
+<section id="opleiding">
+  <div class="section-inner">
+    <div class="section-label">Achtergrond</div>
+    <h2 class="section-title">Opleiding &amp; vaardigheden</h2>
+    <div class="opl-grid">
+      <div class="opl-list">
+        <div class="opl-item">
+          <div class="opl-degree">MSc. Business Administration</div>
+          <div class="opl-school">Strategy &amp; Innovation &middot; Radboud Universiteit Nijmegen</div>
+          <div class="opl-year">2011&ndash;2013 &middot; Scriptiecijfer: 8</div>
+        </div>
+        <div class="opl-item">
+          <div class="opl-degree">Pre-Master Business Administration</div>
+          <div class="opl-school">Radboud Universiteit Nijmegen</div>
+          <div class="opl-year">2010&ndash;2011</div>
+        </div>
+        <div class="opl-item">
+          <div class="opl-degree">HEAO | MER</div>
+          <div class="opl-school">Hogeschool Zuyd, Sittard</div>
+          <div class="opl-year">2006&ndash;2009</div>
+        </div>
+        <div class="opl-item">
+          <div class="opl-degree">VWO | Economie &amp; Maatschappij</div>
+          <div class="opl-school">Kandinsky College, Nijmegen</div>
+          <div class="opl-year">1998&ndash;2004</div>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group">
+          <span class="skill-group-label">Kerncompetenties</span>
+          <div class="skill-tags">
+            <span class="skill-tag key">Projectleiding</span>
+            <span class="skill-tag key">Beleidsvertaling</span>
+            <span class="skill-tag key">Stakeholdermanagement</span>
+            <span class="skill-tag">Analytisch denken</span>
+            <span class="skill-tag">Draagvlakontwikkeling</span>
+            <span class="skill-tag">Sociaal domein</span>
+            <span class="skill-tag">Resultaatgerichtheid</span>
+            <span class="skill-tag">Bestuurlijk schrijven</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <span class="skill-group-label">Systemen</span>
+          <div class="skill-tags">
+            <span class="skill-tag">MS Office</span>
+            <span class="skill-tag">Google Workspace</span>
+            <span class="skill-tag">Power BI</span>
+            <span class="skill-tag">AI-tools</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <span class="skill-group-label">Talen</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Nederlands (moedertaal)</span>
+            <span class="skill-tag">Engels (vloeiend)</span>
+            <span class="skill-tag">Duits</span>
+            <span class="skill-tag">Frans</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Neem contact op</div>
+    <div class="contact-name">Gaston Plantaz</div>
+    <div class="contact-details">
+      <div class="contact-item"><strong>Tel</strong> 06 10 78 56 65</div>
+      <div class="contact-item"><strong>Mail</strong> gastonplantaz@gmail.com</div>
+      <div class="contact-item"><strong>Adres</strong> Gabriel Garc&iacute;a M&aacute;rquezstraat 8, Nijmegen</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Gaston Plantaz</div>
+  <div class="footer-contact">Sollicitatie Beleidsadviseur (Projectleider) &middot; WerkBedrijf Rijk van Nijmegen &middot; Juni 2026</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay) || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.match-card').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.timeline-item').forEach((el, i) => {
+    el.dataset.delay = i * 100;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.profiel-text').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.stat-item').forEach((el, i) => {
+    el.dataset.delay = i * 100;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.motivatie-block').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.starr-card').forEach((el, i) => {
+    el.dataset.delay = i * 70;
+    observer.observe(el);
+  });
+
+  function toggleStarr(header) {
+    header.parentElement.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
