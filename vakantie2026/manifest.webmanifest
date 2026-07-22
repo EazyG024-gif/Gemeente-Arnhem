@@ -1,0 +1,19 @@
+{
+  "name": "Familievakantie 2026 — Oostenrijk & Toscane",
+  "short_name": "Vakantie 2026",
+  "description": "Interactieve familiereisgids voor Fiss, Borgo La Casaccia en L'Antica Fornace.",
+  "start_url": "/vakantie2026/",
+  "scope": "/vakantie2026/",
+  "display": "standalone",
+  "background_color": "#faf6ee",
+  "theme_color": "#c1633f",
+  "lang": "nl",
+  "icons": [
+    {
+      "src": "/vakantie2026/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
